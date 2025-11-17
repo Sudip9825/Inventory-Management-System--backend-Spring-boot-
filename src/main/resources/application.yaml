@@ -1,0 +1,43 @@
+server:
+  port: 8070
+
+spring:
+  application:
+    name: Inventory Management System
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: sudipdahal779@gmail.com
+    password: vdoj rvzn pmrb yzoz
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+
+  jpa:
+    hibernate:
+      ddl-auto: none   # let Liquibase handle schema, not Hibernate
+    database-platform: org.hibernate.dialect.MySQLDialect
+    show-sql: true
+    database: mysql
+    properties:
+      hibernate:
+        format_sql: true
+
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/changelog-master.yaml
+    contexts: dev
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
