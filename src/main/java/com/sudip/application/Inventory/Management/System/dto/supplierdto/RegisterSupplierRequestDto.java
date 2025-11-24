@@ -21,4 +21,7 @@ public class RegisterSupplierRequestDto {
     @NotBlank(message = "adderess is required")
     private String address;
 
+    @NotBlank(message = "adderess is required")
+    private String password;
+
 }

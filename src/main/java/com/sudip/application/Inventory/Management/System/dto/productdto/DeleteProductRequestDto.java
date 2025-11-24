@@ -8,6 +8,8 @@ import lombok.Setter;
 @Setter
 public class DeleteProductRequestDto {
     @NotBlank(message =" Product name required")
-    private String productName;
-    private String uniqueId;
+    private Integer ProductId;
+//    private String productName;
+//    private String uniqueId;
+
 }

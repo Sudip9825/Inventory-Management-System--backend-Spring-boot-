@@ -8,15 +8,16 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Setter
 @Getter
 @Entity
-@Table(name="product")
+@Table(name="products")
 @EntityListeners(AuditingEntityListener.class)
 @SQLRestriction("is_deleted = false")
-public class Product {
+public class Product implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name ="id")
@@ -52,5 +53,8 @@ public class Product {
     @ManyToOne(optional = false)
     @JoinColumn(name="supplier_id", referencedColumnName = "id")
     private Supplier supplier;
+
+    @Column(name="product_picture", nullable = false)
+    private String productPicture;
 
 }

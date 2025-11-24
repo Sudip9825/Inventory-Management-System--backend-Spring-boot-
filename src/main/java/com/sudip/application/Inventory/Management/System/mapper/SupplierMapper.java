@@ -8,6 +8,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.ReportingPolicy;
 import org.springframework.data.domain.Page;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 
@@ -16,11 +17,18 @@ import java.util.stream.Collectors;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE,componentModel = MappingConstants.ComponentModel.SPRING)
 public abstract class SupplierMapper {
+    private final PasswordEncoder passwordEncoder;
+
+    public SupplierMapper(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
+
     // Mapper to create new supplier
     public Supplier createSupplier(RegisterSupplierRequestDto registerSupplierRequestDto){
         Supplier supplier = new Supplier();
         String  uniqueId = String.valueOf(UUID.randomUUID());
         supplier.setSupplierName(registerSupplierRequestDto.getSupplierName());
+        supplier.setPassword(passwordEncoder.encode(registerSupplierRequestDto.getPassword()));
         supplier.setEmail(registerSupplierRequestDto.getEmail());
         supplier.setAddress(registerSupplierRequestDto.getAddress());
         supplier.setPhoneNumber(registerSupplierRequestDto.getPhoneNumber());

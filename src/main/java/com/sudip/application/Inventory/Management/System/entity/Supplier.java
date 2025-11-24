@@ -12,9 +12,9 @@ import java.time.LocalDateTime;
 @Setter
 @Getter
 @Entity
-@Table(name = "supplier")
+@Table(name = "suppliers")
 @EntityListeners(AuditingEntityListener.class)
-public class Supplier {
+public class Supplier  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,6 +26,12 @@ public class Supplier {
 
     @Column(name = "email", nullable = false, unique = true, length = 255)
     private String email;
+
+    @Column(name = "role", length = 255)
+    private String role;
+
+    @Column(name = "password", length = 255)
+    private String password;
 
     @Column(name = "phone", length = 20)
     private String phoneNumber;

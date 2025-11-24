@@ -1,6 +1,6 @@
 package com.sudip.application.Inventory.Management.System.exception.handler;
 
-import com.sudip.application.Inventory.Management.System.coredto.ApiResponse;
+import com.sudip.application.Inventory.Management.System.core.dto.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -14,12 +14,13 @@ import java.util.Objects;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(DuplicateException.class)
-    public ResponseEntity<ApiResponse> handleException(DuplicateException e) {
-        ApiResponse apiRespone = new ApiResponse( false, e.getMessage(), HttpStatus.CONFLICT.value(), LocalDateTime.now());
+    public ResponseEntity<ApiResponse<?>> handleException(DuplicateException e) {
+        ApiResponse<?> apiRespone = new ApiResponse( false, e.getMessage(), HttpStatus.CONFLICT.value(), LocalDateTime.now());
         return new ResponseEntity<>(apiRespone, HttpStatus.CONFLICT);
     }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ApiResponse> handleValidationErrors(MethodArgumentNotValidException ex) {
+    public ResponseEntity<ApiResponse<?>> handleValidationErrors(MethodArgumentNotValidException ex) {
         String error = Objects.requireNonNull(ex.getBindingResult().getFieldError()).getDefaultMessage();
         return new ResponseEntity<>(new ApiResponse(false, error, HttpStatus.BAD_REQUEST.value(),LocalDateTime.now()), HttpStatus.BAD_REQUEST);
     }
